@@ -1,18 +1,29 @@
-import { Sequelize } from 'sequelize';
+import { sequelize } from './sequelizeFunc';
 import User from './seqModels/userModel';
+import Product from './seqModels/productsModel';
+import ProductType from './seqModels/productTypesModel';
+import ProductCondition from './seqModels/productConditionsModel';
+import ProductSize from './seqModels/productSizesModel';
 
-export const sequelize = new Sequelize('main', 'root', '123456', {
-  host: 'localhost',
-  dialect: 'mysql',
-  logging: false,
-});
+export const database = async () => {
+  User.hasMany(Product, {
+    foreignKey: 'id',
+    onDelete: 'cascade',
+  });
+  Product.belongsTo(User, {
+    foreignKey: 'user_id',
+  });
 
-export const checkDbConnection = async () => {
-  try {
-    await sequelize.authenticate();
-    console.log('Connection has been established successfully.');
-  } catch (error) {
-    console.error('Unable to connect to the database:', error);
-  }
+  Product.belongsTo(ProductType, {
+    foreignKey: 'type_id',
+  });
+
+  Product.belongsTo(ProductCondition, {
+    foreignKey: 'condition_id',
+  });
+
+  Product.belongsTo(ProductSize, {
+    foreignKey: 'size_id',
+  });
+  // sequelize.sync({ alter: true });
 };
-console.log('USERRR', User);

@@ -1,9 +1,9 @@
 import { DataTypes } from 'sequelize';
-import { sequelize } from '../sequelizeFunc';
-import Product from './productsModel';
+import User from './userModel';
 
-const User = sequelize.define(
-  'User',
+import { sequelize } from '../sequelizeFunc';
+const Product = sequelize.define(
+  'Product',
   {
     // Model attributes are defined here
     id: {
@@ -11,34 +11,30 @@ const User = sequelize.define(
       autoIncrement: true,
       primaryKey: true,
     },
-    first_name: {
+    title: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    last_name: {
+    price: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    balance: {
+    user_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      defaultValue: 0,
     },
-    email: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    password: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    phone: {
+    condition_id: {
       type: DataTypes.INTEGER,
+      allowNull: false,
     },
-    is_admin: {
+    is_sold: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
       defaultValue: false,
+    },
+    size_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
     },
     created_at: {
       type: DataTypes.TIME,
@@ -50,12 +46,16 @@ const User = sequelize.define(
     deleted_at: {
       type: DataTypes.TIME,
     },
+    type_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
   },
   {
-    tableName: 'users',
+    tableName: 'products',
     createdAt: 'created_at',
     updatedAt: 'updated_at',
     deletedAt: 'deleted_at',
   }
 );
-export default User;
+export default Product;
