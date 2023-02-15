@@ -19,11 +19,19 @@ import { loginSchema, registrationSchema } from './src/validations/userSchema';
 import { checkLogin } from './src/middlewares/checkLogin';
 import { sequelize } from './src/database/sequelizeFunc';
 import { database } from './src/database/database';
+import rateLimit from 'express-rate-limit';
 
 app.listen(port, () => {
   console.log(`[server]: Server is running at http://localhost:3006`);
 });
+
 (async () => {
+  const limiter = rateLimit({
+    windowMs: 20 * 1000, // 20 seconds
+    max: 50, // Limit each IP to 100 requests per `window` (here, per 20 seconds)
+    standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+    legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+  });
   try {
     await sequelize.authenticate();
     await sequelize.sync({ alter: true });
@@ -57,11 +65,7 @@ app.listen(port, () => {
         validation(productDeleteSchema),
         productsCreate
       );
-      // try {
-      //   await User.sync({ alter: true });
-      // } catch (error) {
-      //   console.error('ERROR MESSAGE: ', error);
-      // }
+      app.use(limiter);
     }
   } catch (err) {
     console.error('Unable to connect to the database:', err);
