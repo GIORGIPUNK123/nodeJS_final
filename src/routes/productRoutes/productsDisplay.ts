@@ -7,7 +7,7 @@ import User from '../../database/seqModels/userModel';
 const router = express.Router();
 
 router.get('/', async (req, res) => {
-  res.send(
+  res.json(
     await Product.findAll({
       attributes: ['title', 'price', 'size_id'],
       include: [

@@ -4,6 +4,7 @@ import Product from './seqModels/productsModel';
 import ProductType from './seqModels/productTypesModel';
 import ProductCondition from './seqModels/productConditionsModel';
 import ProductSize from './seqModels/productSizesModel';
+import { Transaction } from './seqModels/transactionsModel';
 
 export const database = async () => {
   User.hasMany(Product, {
@@ -24,6 +25,18 @@ export const database = async () => {
 
   Product.belongsTo(ProductSize, {
     foreignKey: 'size_id',
+  });
+
+  Transaction.belongsTo(User, {
+    foreignKey: 'buyer_id',
+  });
+
+  Transaction.belongsTo(User, {
+    foreignKey: 'seller_id',
+  });
+
+  Transaction.belongsTo(Product, {
+    foreignKey: 'product_id',
   });
   // sequelize.sync({ alter: true });
 };

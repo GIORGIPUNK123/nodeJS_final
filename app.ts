@@ -6,9 +6,13 @@ app.use(express.urlencoded({ extended: true }));
 import usersRoute from './src/routes/userRoutes/usersDisplay';
 import usersLoginRoute from './src/routes/userRoutes/usersLogin';
 import usersRegisterRoute from './src/routes/userRoutes/userRegister';
-import productsCreate from './src/routes/productRoutes/productsCreate';
-import productsDisplay from './src/routes/productRoutes/productsDisplay';
+import productsCreateRoute from './src/routes/productRoutes/productsCreate';
+import productsDisplayRoute from './src/routes/productRoutes/productsDisplay';
+import productsDeleteRoute from './src/routes/productRoutes/productsDelete';
+import productsBuyRoute from './src/routes/productRoutes/ProductsBuy';
+import transactionsDisplayRoute from './src/routes/transactionsDisplay';
 import {
+  productBuySchema,
   productCreateSchema,
   productDeleteSchema,
 } from './src/validations/productSchema';
@@ -52,19 +56,26 @@ app.listen(port, () => {
     }
     // OTHER STUFF
     {
-      app.use('/products', productsDisplay);
+      app.use('/products', productsDisplayRoute);
       app.use(
         '/products/create',
         checkLogin(),
         validation(productCreateSchema),
-        productsCreate
+        productsCreateRoute
+      );
+      app.use(
+        `/products/buy`,
+        checkLogin(),
+        validation(productBuySchema),
+        productsBuyRoute
       );
       app.use(
         '/products/delete',
         checkLogin(),
         validation(productDeleteSchema),
-        productsCreate
+        productsDeleteRoute
       );
+      app.use(`/transactions`, transactionsDisplayRoute);
       app.use(limiter);
     }
   } catch (err) {

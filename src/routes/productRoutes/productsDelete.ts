@@ -10,10 +10,11 @@ interface CustomRequest extends Request {
   userId?: number;
 }
 
-router.get('/', async (req: CustomRequest, res) => {
+router.delete('/', async (req: CustomRequest, res) => {
   // Product.update(
   //   {
   //     is_deleted: true,
+  //     deleted_at: Date.now,
   //   },
   //   {
   //     where: {
@@ -22,7 +23,7 @@ router.get('/', async (req: CustomRequest, res) => {
   //     },
   //   }
   // );
-  res.send(
+  res.json(
     await Product.findAll({
       attributes: ['title', 'price', 'size_id'],
       include: [

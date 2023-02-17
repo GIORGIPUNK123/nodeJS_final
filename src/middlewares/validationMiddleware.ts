@@ -1,9 +1,7 @@
 import { Express, Request, Response, NextFunction } from 'express';
 
 interface CustomRequest extends Request {
-  user?: {
-    userId: number;
-  };
+  userId?: number;
 }
 
 export const validation =
@@ -13,7 +11,7 @@ export const validation =
     try {
       // console.log(req.body);
       await schema.validate(req.body, {
-        context: { userId: req.user?.userId },
+        context: { userId: req.userId },
       });
       next();
       // create a new user in the database
