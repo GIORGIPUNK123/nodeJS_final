@@ -3,24 +3,9 @@ const app = express();
 const port = 3006;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-import usersRoute from './src/routes/userRoutes/usersDisplay';
-import usersLoginRoute from './src/routes/userRoutes/usersLogin';
-import usersRegisterRoute from './src/routes/userRoutes/userRegister';
-import productsCreateRoute from './src/routes/productRoutes/productsCreate';
-import productsDisplayRoute from './src/routes/productRoutes/productsDisplay';
-import productsDeleteRoute from './src/routes/productRoutes/productsDelete';
-import productsBuyRoute from './src/routes/productRoutes/ProductsBuy';
+import userRoutes from './src/routes/userRoutes';
+import productRoutes from './src/routes/productRoutes';
 import transactionsDisplayRoute from './src/routes/transactionsDisplay';
-import {
-  productBuySchema,
-  productCreateSchema,
-  productDeleteSchema,
-} from './src/validations/productSchema';
-import User from './src/database/seqModels/userModel';
-import Product from './src/database/seqModels/productsModel';
-import { validation } from './src/middlewares/validationMiddleware';
-import { loginSchema, registrationSchema } from './src/validations/userSchema';
-import { checkLogin } from './src/middlewares/checkLogin';
 import { sequelize } from './src/database/sequelizeFunc';
 import { database } from './src/database/database';
 import rateLimit from 'express-rate-limit';
@@ -46,38 +31,12 @@ app.listen(port, () => {
     });
     // USERS
     {
-      app.use('/users', usersRoute);
-      app.use(
-        '/users/register',
-        validation(registrationSchema),
-        usersRegisterRoute
-      );
-      app.use('/users/login', validation(loginSchema), usersLoginRoute);
+      app.use(`/users`, userRoutes);
     }
     // OTHER STUFF
-    {
-      app.use('/products', productsDisplayRoute);
-      app.use(
-        '/products/create',
-        checkLogin(),
-        validation(productCreateSchema),
-        productsCreateRoute
-      );
-      app.use(
-        `/products/buy`,
-        checkLogin(),
-        validation(productBuySchema),
-        productsBuyRoute
-      );
-      app.use(
-        '/products/delete',
-        checkLogin(),
-        validation(productDeleteSchema),
-        productsDeleteRoute
-      );
-      app.use(`/transactions`, transactionsDisplayRoute);
-      app.use(limiter);
-    }
+    app.use(`/products`, productRoutes);
+    app.use(`/transactions`, transactionsDisplayRoute);
+    app.use(limiter);
   } catch (err) {
     console.error('Unable to connect to the database:', err);
     app.all('*', (req: Request, res: Response) => {

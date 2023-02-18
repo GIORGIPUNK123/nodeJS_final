@@ -50,6 +50,10 @@ const User = sequelize.define(
     deleted_at: {
       type: DataTypes.TIME,
     },
+    is_deleted: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+    },
   },
   {
     tableName: 'users',
