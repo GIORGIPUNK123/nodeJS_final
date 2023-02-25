@@ -38,3 +38,5 @@ export const Transaction = sequelize.define(
     updatedAt: false,
   }
 );
+
+export default Transaction;

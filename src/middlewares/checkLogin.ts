@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { loginWithJWT } from '../login-register/login';
+import { loginWithJWT } from '../services/authService';
 
 interface CustomRequest extends Request {
   userId?: number;

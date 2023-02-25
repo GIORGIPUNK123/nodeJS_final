@@ -1,5 +1,3 @@
-import { Transaction } from './database/seqModels/transactionsModel';
-
 export const findModelByValues = async (
   model: any,
   searchFields: Record<string, any>,

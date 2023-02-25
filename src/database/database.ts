@@ -1,5 +1,5 @@
 import { sequelize } from './sequelizeFunc';
-import User from './seqModels/userModel';
+import User from './seqModels/usersModel';
 import Product from './seqModels/productsModel';
 import ProductType from './seqModels/productTypesModel';
 import ProductCondition from './seqModels/productConditionsModel';

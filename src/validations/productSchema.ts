@@ -1,6 +1,6 @@
 import * as yup from 'yup';
 import Product from '../database/seqModels/productsModel';
-import User from '../database/seqModels/userModel';
+import User from '../database/seqModels/usersModel';
 export const productCreateSchema = yup.object().shape({
   body: yup.object().shape({
     title: yup.string().required('Product title is required'),

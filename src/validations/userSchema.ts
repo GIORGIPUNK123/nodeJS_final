@@ -1,6 +1,6 @@
 import * as yup from 'yup';
 import 'yup-phone-lite';
-import User from '../database/seqModels/userModel';
+import User from '../database/seqModels/usersModel';
 export const registrationSchema = yup.object().shape({
   body: yup.object().shape({
     first_name: yup.string().required('Name is required'),

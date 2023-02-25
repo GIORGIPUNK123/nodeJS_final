@@ -1,6 +1,6 @@
 import { DataTypes } from 'sequelize';
 import { sequelize } from '../sequelizeFunc';
-import User from './userModel';
+import User from './usersModel';
 
 const ProductType = sequelize.define(
   'ProductType',

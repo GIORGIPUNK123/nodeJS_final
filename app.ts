@@ -9,7 +9,6 @@ import transactionsDisplayRoute from './src/routes/transactionsDisplay';
 import { sequelize } from './src/database/sequelizeFunc';
 import { database } from './src/database/database';
 import rateLimit from 'express-rate-limit';
-
 app.listen(port, () => {
   console.log(`[server]: Server is running at http://localhost:3006`);
 });
