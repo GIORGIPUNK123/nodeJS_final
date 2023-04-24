@@ -19,7 +19,7 @@ const router = express.Router();
 router.post('/buy', checkLogin(), validation(productBuySchema), buyController);
 
 // create route
-router.post('/create', createController);
+router.post('/create', checkLogin(), createController);
 
 // edit route
 router.put(

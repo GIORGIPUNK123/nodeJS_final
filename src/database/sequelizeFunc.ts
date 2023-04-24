@@ -1,5 +1,3 @@
-import dotenv from 'dotenv';
-dotenv.config();
 import config from './config.json';
 import { Sequelize, Dialect } from 'sequelize';
 console.log('process.env.DATABASE: ', process.env.DATABASE);

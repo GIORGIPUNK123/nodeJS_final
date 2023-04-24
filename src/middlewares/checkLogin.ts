@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { loginWithJWT } from '../services/authService';
+import { checkJWTValidity } from '../services/authService';
 
 interface CustomRequest extends Request {
   userId?: number;
@@ -14,7 +14,8 @@ export const checkLogin =
       return next();
     }
     try {
-      const userId = await loginWithJWT(token);
+      console.log('token: ', token);
+      const userId = await checkJWTValidity(token);
       console.log('userId: ', userId);
       req.userId! = userId!;
       next();

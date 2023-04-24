@@ -1,7 +1,7 @@
 import jwt, { JwtPayload } from 'jsonwebtoken';
-import dotenv from 'dotenv';
-dotenv.config();
-export const loginWithJWT = async (jwtToken: string) => {
+// import dotenv from 'dotenv';
+// dotenv.config();
+export const checkJWTValidity = async (jwtToken: string) => {
   return jwt.verify(
     jwtToken!,
     process.env.JWT_SECRET as string,

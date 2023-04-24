@@ -30,14 +30,14 @@ export const login = async (req: Request, res: Response) => {
     const { email, password } = req.body;
     const user = await User.findOne({ where: { email } });
     if (!user) {
-      return res.status(400).json({ message: 'Invalid email or password' });
+      return res.status(404).json({ message: 'Invalid email or password' });
     }
     const passwordMatches = await bcrypt.compare(
       password,
       user.dataValues.password
     );
     if (!passwordMatches) {
-      return res.status(400).json({ message: 'Invalid email or password' });
+      return res.status(404).json({ message: 'Invalid email or password' });
     }
     const accessToken = await tokenGenerator(user.dataValues.id);
     return res.json({ accessToken });
